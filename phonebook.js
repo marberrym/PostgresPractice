@@ -3,8 +3,8 @@ const db = pg('postgres://matt@localhost:5432/phonebook');
 
 
 let listAll = () => {
-    db.query(`SELECT * from contacts`)
-    .then(results => console.log(results))
+    return db.query(`SELECT * from contacts`)
+    
 }
 
 let searchByName = (name) => {
@@ -13,21 +13,25 @@ let searchByName = (name) => {
 
 
 let searchByID = (id) => {
-    db.query(`SELECT * FROM contacts WHERE id=` + id + `;`)
-    .then(results => console.log(results))
+    return db.query(`SELECT * FROM contacts WHERE id=` + id + `;`)
 }
 
 let addContact = (firstname, lastname, address, zipcode, phone) => {
-    db.query(`INSERT INTO contacts (firstname, lastname, address, zipcode, phone) values
-        ('`+firstname+`', '`+lastname+`', '`+address+`', '`+zipcode+`', '`+phone+`');`)
-        .then(results => console.log(results))
+    return db.query(`INSERT INTO contacts (firstname, lastname, address, zipcode, phone) values
+        ('`+firstname+`', '`+lastname+`', '`+address+`', '`+zipcode+`', '`+phone+`');`) 
 }
 
-// addContact('Alex', 'K', 'Smokey', '23123', '74637362');
-// listAll();
-// searchByID(2);
+let deleteContact = (id) => {
+    return db.query(`DELETE FROM contacts WHERE id=` + id + `;`)
+}
 searchByName('Cronin') 
     .then((results) => {
             console.log(results)
         }) 
+
+exports.listAll = listAll
+exports.searchLName = searchByName
+exports.searchByID = searchByID
+exports.addContact = addContact
+exports.deleteContact = deleteContact
 
