@@ -13,7 +13,7 @@ let searchByName = (name) => {
 
 
 let searchByID = (id) => {
-    return db.query(`SELECT * FROM contacts WHERE id=` + id + `;`)
+    return db.one(`SELECT * FROM contacts WHERE id=` + id + `;`)
 }
 
 let addContact = (firstname, lastname, address, zipcode, phone) => {

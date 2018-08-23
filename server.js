@@ -38,7 +38,8 @@ let contactsPost = (req, res) => {
 let getContact = (req, res) => {
     let id = req.params.id;
     queries.searchByID(id)
-        .then((results) => res.end(JSON.stringify(results)));
+        .then((results) => res.end(JSON.stringify(results)))
+        .catch((results) => invalidPage(req, res));
 }
 
 let deleteContact = (req, res) => {
@@ -48,12 +49,8 @@ let deleteContact = (req, res) => {
 }
 
 let invalidPage = (req, res) => {
-    console.log(getSuffix(req.url, '/contacts/'));
-    res.end("404 you twat hey")
+    res.end("404 PUNK")
 }
-
-
-
 
 const ex = require('express');
 let server = ex();
@@ -62,5 +59,6 @@ server.get('/contacts', contactsReq);
 server.post('/contacts', contactsPost);
 server.get('/contacts/:id', getContact);
 server.delete('/contacts/:id', deleteContact);
+server.get('*', invalidPage)
 
 server.listen(7000);
